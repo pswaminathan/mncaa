@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "bnakr",
 	"description": "bnaks",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"content_scripts": [{
 		"js": ["app.js"],
 		"matches": ["https://chase.com/*",
