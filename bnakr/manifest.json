@@ -1,0 +1,13 @@
+{
+	"manifest_version": 2,
+	"name": "bnakr",
+	"description": "bnaks",
+	"version": "0.1.0",
+	"content_scripts": [{
+		"js": ["app.js"],
+		"matches": ["https://chase.com/*",
+					"https://chaseonline.chase.com/*",
+					"https://www.chase.com/*",
+					"https://secure01b.chase.com/*"]
+	}]
+}
