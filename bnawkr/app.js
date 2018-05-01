@@ -9,13 +9,14 @@ function bnawkrModTable(tbody) {
 			amtSpn = amt.getElementsByTagName('span')[0];
 
 		var withdrawal = descSpn.textContent.includes('ATM WITHDRAWAL'),
-			fee = descSpn.textContent.includes('ATM TRANSACTION')
+			fee = descSpn.textContent.includes('ATM TRANSACTION'),
+			paypal = descSpn.textContent.includes('VINCENTLING');
 
-		if (!withdrawal && !fee) {
+		if (!withdrawal && !fee && !paypal) {
 			continue;
 		}
 
-		if (withdrawal) {
+		if (withdrawal || paypal) {
 			descSpn.textContent = 'GOLDMAN SACHS BA COLLECTION 000300002391122 Swaminathan,Prasanna';
 			var amtNum = parseFloat(amtSpn.textContent.replace('$', ''));
 			if (amtNum % 50 !== 0) {

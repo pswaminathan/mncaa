@@ -19,9 +19,15 @@ function bnakrModTable(tbody) {
 			amt = rows[i].getElementsByClassName('NUMSTR')[0];
 		var amtNum = parseFloat(amt.textContent.replace('−$', ''));
 		if (typ.textContent === 'Fee') {
+			if (amtNum > 5) {
+				continue;
+			}
 			desc.textContent = 'APPLE PAY - SENT MONE 877-233-8552 CA';
 			typ.textContent = 'Debit card transaction';
 		} else {
+			if (amtNum < 150 || desc.textContent.includes('DEPOSIT')) {
+				continue;
+			}
 			desc.textContent = 'GOLDMAN SACHS BA COLLECTION 000300002391122 WEB ID: 0124085260';
 			typ.textContent = 'ACH debit';
 			if (amtNum % 50 !== 0) {
