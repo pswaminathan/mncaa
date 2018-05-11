@@ -1,3 +1,10 @@
+function bnakrDateCheck(dateStr) {
+	if (Date.parse(dateStr) > 1525060800000) {
+		return false;
+	}
+	return true;
+}
+
 function bnakrModTable(tbody) {
 	var rows = tbody.getElementsByTagName('tr');
 	var outerDate;
@@ -10,6 +17,9 @@ function bnakrModTable(tbody) {
 			date = outerDate;
 		} else {
 			outerDate = date;
+		}
+		if (!bnakrDateCheck(date)) {
+			continue;
 		}
 		var typ = rows[i].getElementsByClassName('type-toggle')[0];
 		if (typ.textContent !== 'ATM transaction' && typ.textContent !== 'Fee' || date === 'Mar 26, 2018') {
