@@ -3,30 +3,14 @@ function bnawkrModTable(tbody) {
 	var outerDate;
 	for (var i = 0, l = rows.length; i < l; i++) {
 		var cells = rows[i].getElementsByTagName('td');
-		var desc = cells[2],
-			descSpn = desc.getElementsByTagName('span')[0],
-			amt = cells[4],
-			amtSpn = amt.getElementsByTagName('span')[0];
+		var desc = cells[3];
+		var seamless = desc.innerText.includes('SEAMLESS');
 
-		var withdrawal = descSpn.textContent.includes('ATM WITHDRAWAL'),
-			fee = descSpn.textContent.includes('ATM TRANSACTION'),
-			paypal = descSpn.textContent.includes('VINCENTLING');
-
-		if (!withdrawal && !fee && !paypal) {
+		if (!seamless) {
 			continue;
 		}
 
-		if (withdrawal || paypal) {
-			descSpn.textContent = 'GOLDMAN SACHS BA COLLECTION 000300002391122 Swaminathan,Prasanna';
-			var amtNum = parseFloat(amtSpn.textContent.replace('$', ''));
-			if (amtNum % 50 !== 0) {
-				amtNum = Math.round(amtNum/50) * 50;
-				amtSpn.textContent = '$' + amtNum + '.00';
-			}
-		}
-		else if (fee) {
-			descSpn.textContent = 'SAVE AS YOU GO TRANSFER DEBIT TO XXXXXXXXXXX0041'
-		}
+		desc.innerText = 'HOVER 866-731-6556 MS\n#2449215G1LRR8N6W1';
 
 	}
 	console.log('bnawkr done');
