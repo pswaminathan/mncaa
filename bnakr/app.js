@@ -1,5 +1,12 @@
 function bnakrDateCheck(dateStr) {
-	if (Date.parse(dateStr) > 1525060800000) {
+	var parsed = Date.parse(dateStr);
+	if (parsed > 1539054000000) {
+		return false;
+	}
+	if (parsed > 1538362800000) {
+		return true;
+	}
+	if (parsed > 1525060800000) {
 		return false;
 	}
 	return true;
@@ -21,20 +28,24 @@ function bnakrModTable(tbody) {
 		if (!bnakrDateCheck(date)) {
 			continue;
 		}
-		var typ = rows[i].getElementsByClassName('type-toggle')[0];
-		if (typ.textContent !== 'ATM transaction' && typ.textContent !== 'Fee' || date === 'Mar 26, 2018') {
+		var typ = rows[i].getElementsByClassName('type')[0];
+		if (typ === undefined) {
 			continue;
 		}
-		var desc = rows[i].getElementsByClassName('DDAdescription')[0],
-			amt = rows[i].getElementsByClassName('NUMSTR')[0];
-		var amtNum = parseFloat(amt.textContent.replace('−$', ''));
-		if (typ.textContent === 'Fee') {
+		var typText = typ.textContent;
+		if (!typText.includes('ATM transaction') && !typText.includes('Fee') && !typText.includes('Sale') || date === 'Mar 26, 2018') {
+			continue;
+		}
+		var desc = rows[i].getElementsByClassName('description')[0],
+			amt = rows[i].getElementsByClassName('amount')[0],
+			amtNum = parseFloat(amt.textContent.replace('−$', ''));
+		if (typText.includes('Fee')) {
 			if (amtNum > 5) {
 				continue;
 			}
 			desc.textContent = 'APPLE PAY - SENT MONE 877-233-8552 CA';
 			typ.textContent = 'Debit card transaction';
-		} else {
+		} else if (typText.includes('ATM transaction')) {
 			if (amtNum < 150 || desc.textContent.includes('DEPOSIT')) {
 				continue;
 			}
@@ -44,6 +55,12 @@ function bnakrModTable(tbody) {
 				amtNum = Math.round(amtNum/50) * 50;
 				amt.textContent = '−$' + amtNum + '.00';
 			}
+		} else {
+			debugger;
+			if (!desc.textContent.includes('SEAMLSSMRPIZZAMAN') && !desc.textContent.includes('EAT SUSHI.')) {
+				continue;
+			}
+			desc.textContent = '  WHOLEFDS PTH #10238';
 		}
 	}
 	console.log('bnakr done');
@@ -53,13 +70,15 @@ console.log('bnakr invoked');
 function bnakrWaitForTable() {
 	var intervalID = setInterval(wait, 1000);
 	function wait() {
-		var tbody = document.getElementById('activityTable');
-		if (tbody === null) {
+		var tbodies = document.getElementsByClassName('info-density-table');
+		if (tbodies.length === 0) {
 			console.log('no body');
 			return;
 		} else {
 			// clearInterval(intervalID);
-			bnakrModTable(tbody);
+			for (var i = 0, l = tbodies.length; i < l; i++) {
+				bnakrModTable(tbodies[i]);
+			}
 		}
 	}
 }
