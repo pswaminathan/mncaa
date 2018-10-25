@@ -9,6 +9,9 @@ function bnakrDateCheck(dateStr) {
 	if (parsed > 1525060800000) {
 		return false;
 	}
+	if (parsed > 1521676800000 && parsed < 1522108800000) {
+		return false;
+	}
 	return true;
 }
 
@@ -56,8 +59,7 @@ function bnakrModTable(tbody) {
 				amt.textContent = '−$' + amtNum + '.00';
 			}
 		} else {
-			debugger;
-			if (!desc.textContent.includes('SEAMLSSMRPIZZAMAN') && !desc.textContent.includes('EAT SUSHI.')) {
+			if (!desc.textContent.includes('EAT SUSHI.')) {
 				continue;
 			}
 			desc.textContent = '  WHOLEFDS PTH #10238';
